@@ -1,9 +1,11 @@
-package com.codegod.alctrack;
+package com.codegod.alctrack.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.codegod.alctrack.R;
+
+public class UsersActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
