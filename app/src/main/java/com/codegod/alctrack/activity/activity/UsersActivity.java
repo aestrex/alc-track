@@ -1,6 +1,6 @@
 package com.codegod.alctrack.activity.activity;
 
-import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.codegod.alctrack.R;
 import com.codegod.alctrack.activity.adapter.DataAdapter;
@@ -51,9 +50,18 @@ public class UsersActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                User user = data.get(position);
+                /*User user = data.get(position);
 
-                Toast.makeText(getApplicationContext(), user.getLogin(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), user.getLogin(), Toast.LENGTH_SHORT).show();*/
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("users", data);
+                bundle.putInt("position", position);
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                UserProfileDialogFragment newFragment = UserProfileDialogFragment.newInstance();
+                newFragment.setArguments(bundle);
+                newFragment.show(ft, "slideshow");
             }
 
             @Override

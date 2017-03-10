@@ -1,10 +1,12 @@
 package com.codegod.alctrack.activity.model;
 
+import java.io.Serializable;
+
 /**
  * Created by alamzdayveed on 10/03/2017.
  */
 
-public class User {
+public class User implements Serializable {
     private String
         login,
         avatar_url,

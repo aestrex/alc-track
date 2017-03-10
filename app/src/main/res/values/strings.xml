@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">alc track</string>
+    <string name="title_activity_users_swipe">UsersSwipeActivity</string>
 </resources>
