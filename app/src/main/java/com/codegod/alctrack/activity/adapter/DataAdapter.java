@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codegod.alctrack.R;
+import com.codegod.alctrack.activity.helper.CircleTransform;
 import com.codegod.alctrack.activity.model.User;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         Glide.with(context).load(users.get(i).getAvatar_url())
                 .thumbnail(0.5f)
                 .crossFade()
+                .transform(new CircleTransform(context))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.previewImage);
     }

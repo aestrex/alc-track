@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/imageView_avatar"
-        android:layout_weight="0.90" />
+        android:layout_weight="0.98" />
 
     <TextView
         tools:text="login"
@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView_login"
         android:textSize="18sp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_weight="0.03" />
 
     <TextView
         tools:text="github url"
@@ -30,7 +31,8 @@
         android:layout_gravity="center"
         android:id="@+id/textView_github_url"
         android:textSize="22sp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_weight="0.02" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

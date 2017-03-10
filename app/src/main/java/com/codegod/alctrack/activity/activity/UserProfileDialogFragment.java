@@ -98,7 +98,6 @@ public class UserProfileDialogFragment extends DialogFragment {
             });
 
             Glide.with(getActivity()).load(user.getAvatar_url())
-                    .thumbnail(1f)
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imageViewAvatar);
