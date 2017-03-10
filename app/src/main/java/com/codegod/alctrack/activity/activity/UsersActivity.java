@@ -1,5 +1,6 @@
 package com.codegod.alctrack.activity.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.codegod.alctrack.R;
 import com.codegod.alctrack.activity.adapter.DataAdapter;
+import com.codegod.alctrack.activity.listener.RecyclerTouchListener;
 import com.codegod.alctrack.activity.model.User;
 import com.codegod.alctrack.activity.rest.GithubJSONResponse;
 import com.codegod.alctrack.activity.rest.GithubRequestInterface;
@@ -44,6 +47,21 @@ public class UsersActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                User user = data.get(position);
+
+                Toast.makeText(getApplicationContext(), user.getLogin(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
         loadJSON();
     }
 
