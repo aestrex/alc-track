@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.codegod.alctrack.R;
 import com.codegod.alctrack.activity.adapter.DataAdapter;
@@ -26,6 +28,7 @@ public class UsersActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<User> data;
     private DataAdapter adapter;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class UsersActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        progressBar = (ProgressBar) findViewById(R.id.progress);
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -56,8 +60,9 @@ public class UsersActivity extends AppCompatActivity {
             public void onResponse(Call<GithubJSONResponse> call, Response<GithubJSONResponse> response) {
                 GithubJSONResponse jsonResponse = response.body();
                 data = new ArrayList<>(Arrays.asList(jsonResponse.getItems()));
-                adapter = new DataAdapter(data);
+                adapter = new DataAdapter(data, getApplicationContext());
                 recyclerView.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
