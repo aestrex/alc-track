@@ -1,4 +1,4 @@
-package com.codegod.alctrack.activity.activity;
+package com.codegod.alctrack.activity;
 
 import android.content.Context;
 import android.content.Intent;

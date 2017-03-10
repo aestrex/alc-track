@@ -1,4 +1,4 @@
-package com.codegod.alctrack.activity.activity;
+package com.codegod.alctrack.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
