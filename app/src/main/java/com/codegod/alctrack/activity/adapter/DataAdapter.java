@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,16 +18,15 @@ import com.codegod.alctrack.activity.model.User;
 
 import java.util.ArrayList;
 
-/**
- * Created by alamzdayveed on 10/03/2017.
- */
-
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> implements Filterable {
     private ArrayList<User> users;
+    private ArrayList<User> filteredUsers = new ArrayList<>();
+
     private Context context;
 
     public DataAdapter(ArrayList<User> users, Context context) {
         this.users = users;
+        filteredUsers.addAll(users);
         this.context = context;
     }
 
@@ -50,6 +51,40 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return users.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                users.clear();
+                final FilterResults results = new FilterResults();
+
+                if (constraint.length() == 0) {
+                    users.addAll(filteredUsers);
+                } else {
+                    final String filterPattern = constraint.toString().toLowerCase().trim();
+
+                    for (final User user :
+                            filteredUsers) {
+                        if (user.getLogin().toLowerCase().contains(filterPattern)) {
+                            users.add(user);
+                        }
+                    }
+                }
+
+                results.values = users;
+                results.count = users.size();
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
