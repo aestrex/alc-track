@@ -88,10 +88,6 @@ public class UsersActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                /*User user = data.get(position);
-
-                Toast.makeText(getApplicationContext(), user.getLogin(), Toast.LENGTH_SHORT).show();*/
-
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("users", data);
                 bundle.putInt("position", position);
@@ -117,16 +113,36 @@ public class UsersActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        GithubRequestInterface request = retrofit.create(GithubRequestInterface.class);
+        final GithubRequestInterface request = retrofit.create(GithubRequestInterface.class);
         Call<GithubJSONResponse> call = request.getJSON();
         call.enqueue(new Callback<GithubJSONResponse>() {
             @Override
             public void onResponse(Call<GithubJSONResponse> call, Response<GithubJSONResponse> response) {
                 GithubJSONResponse jsonResponse = response.body();
                 data = new ArrayList<>(Arrays.asList(jsonResponse.getItems()));
-                adapter = new DataAdapter(data, getApplicationContext());
-                recyclerView.setAdapter(adapter);
-                progressBar.setVisibility(View.GONE);
+
+                call = request.getJSON2();
+                call.enqueue(new Callback<GithubJSONResponse>() {
+                    @Override
+                    public void onResponse(Call<GithubJSONResponse> call, Response<GithubJSONResponse> response) {
+                        GithubJSONResponse jsonResponse = response.body();
+                        for (User user :
+                                Arrays.asList(jsonResponse.getItems())) {
+                            data.add(user);
+                        }
+
+                        adapter = new DataAdapter(data, getApplicationContext());
+                        recyclerView.setAdapter(adapter);
+                        progressBar.setVisibility(View.GONE);
+
+                        Log.e("retro", data.size() + "");
+                    }
+
+                    @Override
+                    public void onFailure(Call<GithubJSONResponse> call, Throwable t) {
+                        Log.d("retro", t.getMessage());
+                    }
+                });
             }
 
             @Override

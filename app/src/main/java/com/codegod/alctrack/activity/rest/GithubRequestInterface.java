@@ -10,4 +10,7 @@ import retrofit2.http.GET;
 public interface GithubRequestInterface {
     @GET("search/users?q=type:user+location:Lagos+language:java&per_page=100")
     Call<GithubJSONResponse> getJSON();
+
+    @GET("search/users?q=type:user+location:Lagos+language:java&per_page=100&page=2")
+    Call<GithubJSONResponse> getJSON2();
 }
